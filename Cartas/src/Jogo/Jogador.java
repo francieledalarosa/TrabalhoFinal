@@ -7,6 +7,7 @@ class Jogador {
     private String nome;
     private List<Integer> mao = new ArrayList<>();
     private List<Integer> cartas = new ArrayList<>();
+    private int cartaEscolhida;
 
     public Jogador(String nome) {
         this.nome = nome;
@@ -22,6 +23,18 @@ class Jogador {
 
     public List<Integer> getCartas() {
         return cartas;
+    }
+    
+    public boolean validarCartaEscolhida(int carta) {
+        return mao.contains(carta);
+    }
+
+    public int getCartaEscolhida() {
+        return cartaEscolhida;
+    }
+
+    public void setCartaEscolhida(int cartaEscolhida) {
+        this.cartaEscolhida = cartaEscolhida;
     }
 
     public int getPontuacao() {

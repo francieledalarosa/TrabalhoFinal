@@ -55,15 +55,30 @@ public class Main {
             System.out.println("Rodada " + r);
             System.out.println("----------");
 
-            // Passo 5d-f: Jogar cartas
+            // Passo 5d: Escolher cartas
             for (Jogador jogador : jogadores) {
                 System.out.println("Vez de " + jogador.getNome() + ".");
                 System.out.println("Sua mão: " + jogador.getMao());
-                System.out.print("Digite a carta a ser jogada: ");
-                int carta = scanner.nextInt();
-                scanner.nextLine();
-                jogador.jogarCarta(carta, tabuleiro);
+                int carta;
+                do{ System.out.print("Digite a carta a ser jogada: ");
+                    carta = scanner.nextInt();
+                    scanner.nextLine();
+                    if (!jogador.validarCartaEscolhida(carta)) {
+                        System.out.println("Carta escolhida não está na mão do jogador. Escolha novamente.");
+                    }
+                }while (!jogador.validarCartaEscolhida(carta));
+                jogador.setCartaEscolhida(carta);
             }
+            // Passo 5e: 
+            do{
+                int menorCarta = 110;
+                for (Jogador jogador : jogadores) {
+                    if(jogador.getCartaEscolhida() < menorCarta) {
+                        menorCarta = jogador.getCartaEscolhida();
+                    }
+                }
+                jogador.jogarCarta(menorCarta, tabuleiro);
+            }while(Jogador jogador : jogadores);
             // Passo 5g: Mostrar tabuleiro e pontos
             System.out.println("Tabuleiro atual:");
             for (List<Carta> linha : tabuleiro) {
