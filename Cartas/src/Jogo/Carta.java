@@ -1,4 +1,5 @@
 package Jogo;
+
 class Carta {
     private int valor;
 

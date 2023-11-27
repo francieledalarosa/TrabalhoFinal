@@ -1,4 +1,5 @@
 package Jogo;
+
 import java.util.*;
 
 public class Main {

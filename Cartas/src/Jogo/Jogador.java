@@ -1,7 +1,6 @@
 package Jogo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Jogador {
     private static final int NUM_COLUNAS = 5;
