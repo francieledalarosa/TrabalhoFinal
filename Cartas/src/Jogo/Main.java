@@ -70,7 +70,7 @@ public class Main {
                 jogador.setCartaEscolhida(carta);
             }
             // Passo 5e: 
-            do{
+            for (Jogador jogado : jogadores) {
                 int menorCarta = 110;
                 for (Jogador jogador : jogadores) {
                     if(jogador.getCartaEscolhida() < menorCarta) {
@@ -78,7 +78,7 @@ public class Main {
                     }
                 }
                 jogador.jogarCarta(menorCarta, tabuleiro);
-            }while(Jogador jogador : jogadores);
+            }
             // Passo 5g: Mostrar tabuleiro e pontos
             System.out.println("Tabuleiro atual:");
             for (List<Carta> linha : tabuleiro) {
