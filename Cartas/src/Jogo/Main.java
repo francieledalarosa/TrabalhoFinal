@@ -70,14 +70,13 @@ public class Main {
                 jogador.setCartaEscolhida(carta);
             }
             // Passo 5e: 
-            for (Jogador jogado : jogadores) {
-                int menorCarta = 110;
-                for (Jogador jogador : jogadores) {
-                    if(jogador.getCartaEscolhida() < menorCarta) {
-                        menorCarta = jogador.getCartaEscolhida();
-                    }
-                }
-                jogador.jogarCarta(menorCarta, tabuleiro);
+            Collections.sort(jogadores, new JogadorComp());
+            for (Jogador jogador : jogadores) {
+                System.out.println(jogador.getNome() + ": " + jogador.getCartaEscolhida());
+            }
+            //Passo 5f:
+            for (Jogador jogador : jogadores) {
+                jogador.jogarCarta(jogador.getCartaEscolhida(), tabuleiro);
             }
             // Passo 5g: Mostrar tabuleiro e pontos
             System.out.println("Tabuleiro atual:");
