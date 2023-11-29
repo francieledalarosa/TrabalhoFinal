@@ -99,18 +99,19 @@ class Jogador {
           tabuleiro.set(linha, new ArrayList<Carta>());
         }
         if (tabuleiro.get(linha).size() == 0) {
-          tabuleiro.get(linha).add(new Carta(carta));
-        } else {
-          int insertIndex = 0;
-          for (int i = 0; i < tabuleiro.get(linha).size(); i++) {
-            Carta currentCard = tabuleiro.get(linha).get(i);
-            if (currentCard == null || currentCard.getValor() > carta) {
-              insertIndex = i;
-              break;
+            tabuleiro.get(linha).add(coluna, new Carta(carta));
+          } else {
+            int insertIndex = coluna;
+            for (int i = 0; i < tabuleiro.get(linha).size(); i++) {
+              Carta currentCard = tabuleiro.get(linha).get(i);
+              if (currentCard == null || currentCard.getValor() > carta) {
+                insertIndex = i;
+                break;
+              }
             }
+            tabuleiro.get(linha).add(insertIndex, new Carta(carta));
           }
-          tabuleiro.get(linha).add(insertIndex, new Carta(carta));
-        }
+          
       }
 
     private int getLinhaComMaiorUltimaCarta(List<List<Carta>> tabuleiro) {
