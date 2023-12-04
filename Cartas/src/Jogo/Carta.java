@@ -16,6 +16,7 @@ public class Carta {
             return "[    ]";
         } else {
             return String.format("[%3d]", valor);
+            
         }
     }
 }
