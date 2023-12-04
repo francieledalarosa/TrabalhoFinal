@@ -1,6 +1,7 @@
 package Jogo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Jogador {
     
@@ -55,64 +56,71 @@ class Jogador {
         int linha = -1;
         int coluna = -1;
         int diferencaMinima = Integer.MAX_VALUE;
+
         for (int i = 0; i < tabuleiro.size(); i++) {
-          if (tabuleiro.get(i).size() == NUM_COLUNAS) {
-            // regra f.iii
-            for (Carta c : tabuleiro.get(i)) {
-              cartas.add(c.getValor());
-            }
-            tabuleiro.set(i, new ArrayList<Carta>());
-          } else {
-            int ultimaCarta = tabuleiro.get(i).get(tabuleiro.get(i).size() - 1).getValor();
-            if (carta > ultimaCarta && carta - ultimaCarta < diferencaMinima) {
-              linha = i;
-              coluna = tabuleiro.get(i).size();
-              diferencaMinima = carta - ultimaCarta;
-            }
-          }
-        }
-        if (linha == -1) {
-          for (int i = 0; i < tabuleiro.size(); i++) {
             if (tabuleiro.get(i).size() == NUM_COLUNAS) {
-              for (Carta c : tabuleiro.get(i)) {
-                cartas.add(c.getValor());
-              }
-              tabuleiro.set(i, new ArrayList<Carta>());
+                // regra f.iii
+                for (Carta c : tabuleiro.get(i)) {
+                    int ultimaCarta = -1;
+                    if (!tabuleiro.get(i).isEmpty() && tabuleiro.get(i).get(tabuleiro.get(i).size() - 1) != null) {
+                        ultimaCarta = tabuleiro.get(i).get(tabuleiro.get(i).size() - 1).getValor();
+                    }
+                    cartas.add(ultimaCarta);
+                }
+                tabuleiro.set(i, new ArrayList<>());
             } else {
-              int ultimaCarta = tabuleiro.get(i).get(tabuleiro.get(i).size() - 1).getValor();
-              if (ultimaCarta - carta < diferencaMinima) {
-                linha = i;
-                coluna = 0;
-                diferencaMinima = ultimaCarta - carta;
-              }
+                int ultimaCarta = tabuleiro.get(i).isEmpty() ? -1 : tabuleiro.get(i).get(tabuleiro.get(i).size() - 1).getValor();
+                if (carta > ultimaCarta && carta - ultimaCarta < diferencaMinima) {
+                    linha = i;
+                    coluna = tabuleiro.get(i).size();
+                    diferencaMinima = carta - ultimaCarta;
+                }
             }
-          }
         }
+
         if (linha == -1) {
-          linha = getLinhaComMaiorUltimaCarta(tabuleiro);
-          coluna = 0;
-          for (Carta c : tabuleiro.get(linha)) {
-            if (c != null) {
-              cartas.add(c.getValor());
+            for (int i = 0; i < tabuleiro.size(); i++) {
+                if (tabuleiro.get(i).size() == NUM_COLUNAS) {
+                    for (Carta c : tabuleiro.get(i)) {
+                        cartas.add(c.getValor());
+                    }
+                    tabuleiro.set(i, new ArrayList<>());
+                } else {
+                    int ultimaCarta = tabuleiro.get(i).isEmpty() ? -1 : tabuleiro.get(i).get(tabuleiro.get(i).size() - 1).getValor();
+                    if (ultimaCarta - carta < diferencaMinima) {
+                        linha = i;
+                        coluna = 0;
+                        diferencaMinima = ultimaCarta - carta;
+                    }
+                }
             }
-          }
-          tabuleiro.set(linha, new ArrayList<Carta>());
         }
+
+        if (linha == -1) {
+            linha = getLinhaComMaiorUltimaCarta(tabuleiro);
+            coluna = 0;
+            for (Carta c : tabuleiro.get(linha)) {
+                if (c != null) {
+                    cartas.add(c.getValor());
+                }
+            }
+            tabuleiro.set(linha, new ArrayList<>());
+        }
+
         if (tabuleiro.get(linha).size() == 0) {
             tabuleiro.get(linha).add(coluna, new Carta(carta));
-          } else {
+        } else {
             int insertIndex = coluna;
             for (int i = 0; i < tabuleiro.get(linha).size(); i++) {
-              Carta currentCard = tabuleiro.get(linha).get(i);
-              if (currentCard == null || currentCard.getValor() > carta) {
-                insertIndex = i;
-                break;
-              }
+                Carta currentCard = tabuleiro.get(linha).get(i);
+                if (currentCard == null || currentCard.getValor() > carta) {
+                    insertIndex = i;
+                    break;
+                }
             }
             tabuleiro.get(linha).add(insertIndex, new Carta(carta));
-          }
-          
-      }
+        }
+    }
 
     private int getLinhaComMaiorUltimaCarta(List<List<Carta>> tabuleiro) {
         int maiorUltimaCarta = Integer.MIN_VALUE;
@@ -141,6 +149,7 @@ class Jogador {
         return pontos;
     }
 }
+
 class JogadorComp implements java.util.Comparator<Jogador> {
     @Override
     public int compare(Jogador a, Jogador b) {

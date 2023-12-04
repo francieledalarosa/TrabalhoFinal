@@ -1,17 +1,21 @@
 package Jogo;
 
-class Carta {
-    private int valor;
+public class Carta {
+    private Integer valor;
 
-    public Carta(int valor) {
+    public Carta(Integer valor) {
         this.valor = valor;
     }
 
-    public int getValor() {
+    public Integer getValor() {
         return valor;
     }
 
     public String toString() {
-        return String.format("%3d", valor);
+        if (valor == null) {
+            return "[    ]";
+        } else {
+            return String.format("[%3d]", valor);
+        }
     }
 }
